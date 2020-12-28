@@ -9,7 +9,24 @@ function start() { // Inicio da função start()
     
     //Principais variáveis do jogo
 	
-	var jogo = {}
+    var jogo = {}
+    var TECLA = {
+        UP: 38,
+        DOWN: 40,
+        RIGHT: 39
+    }
+    
+    jogo.pressionou = [];
+    
+    //Verifica se o usuário pressionou alguma tecla	
+	
+	$(document).keydown(function(e){
+        jogo.pressionou[e.which] = true;
+    });
+    
+    $(document).keyup(function(e){
+       jogo.pressionou[e.which] = false;
+    });
 	
 	//Game Loop
 
@@ -17,7 +34,8 @@ function start() { // Inicio da função start()
 	
 	function loop() {
 	
-	    movefundo();
+        movefundo();
+        movejogador();
 	
 	}
 
@@ -28,6 +46,27 @@ function start() { // Inicio da função start()
 	    esquerda = parseInt($("#fundoGame").css("background-position"));
 	    $("#fundoGame").css("background-position",esquerda-1);
 	
-	} 
+    } 
 
-} // Fim da função start
+    function movejogador() {
+	
+        if (jogo.pressionou[TECLA.UP]) {
+            var topo = parseInt($("#jogador").css("top"));
+            $("#jogador").css("top",topo-10);
+        
+        }
+        
+        if (jogo.pressionou[TECLA.DOWN]) {
+            
+            var topo = parseInt($("#jogador").css("top"));
+            $("#jogador").css("top",topo+10);	
+        }
+        
+        if (jogo.pressionou[TECLA.RIGHT]) {
+            
+            //Chama função Disparo	
+        }
+    
+    } 
+
+}
