@@ -31,9 +31,18 @@ function start() { // Inicio da função start()
         RIGHT: 39
     };
     jogo.pressionou = [];
+
+    var somDisparo=document.getElementById("somDisparo");
+    var somExplosao=document.getElementById("somExplosao");
+    var musica=document.getElementById("musica");
+    var somGameover=document.getElementById("somGameover");
+    var somPerdido=document.getElementById("somPerdido");
+    var somResgate=document.getElementById("somResgate");
+
+    musica.addEventListener("ended", function(){ musica.currentTime = 0; musica.play(); }, false);
+    musica.play();
     
     //Verifica se o usuário pressionou alguma tecla	
-	
 	$(document).keydown(function(e){
         jogo.pressionou[e.which] = true;
     });
@@ -128,7 +137,8 @@ function start() { // Inicio da função start()
         if (podeAtirar==true) {
 
             podeAtirar=false;
-        
+
+            somDisparo.play();
             topo = parseInt($("#jogador").css("top"))
             posicaoX= parseInt($("#jogador").css("left"))
             tiroX = posicaoX + 190;
@@ -165,6 +175,7 @@ function start() { // Inicio da função start()
         if (colisao1.length>0) {
 
             energiaAtual--;
+            somExplosao.play();
 
             inimigo1X = parseInt($("#inimigo1").css("left"));
             inimigo1Y = parseInt($("#inimigo1").css("top"));
@@ -179,6 +190,7 @@ function start() { // Inicio da função start()
         if (colisao2.length>0) {
 
             energiaAtual--;
+            somExplosao.play();
 
             inimigo2X = parseInt($("#inimigo2").css("left"));
             inimigo2Y = parseInt($("#inimigo2").css("top"));
@@ -211,6 +223,7 @@ function start() { // Inicio da função start()
         if (colisao4.length>0) {   
 
             pontos=pontos+50;
+            somExplosao.play();
 
             inimigo2X = parseInt($("#inimigo2").css("left"));
             inimigo2Y = parseInt($("#inimigo2").css("top"));
@@ -224,7 +237,10 @@ function start() { // Inicio da função start()
     
         // jogador com o amigo  
         if (colisao5.length>0) {
+
             salvos++;
+            somResgate.play();
+
             reposicionaAmigo();
             $("#amigo").remove();
         }
@@ -233,6 +249,7 @@ function start() { // Inicio da função start()
         if (colisao6.length>0) {
 
             perdidos++;
+            somPerdido.play();
 
             amigoX = parseInt($("#amigo").css("left"));
             amigoY = parseInt($("#amigo").css("top"));
